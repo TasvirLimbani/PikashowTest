@@ -66,7 +66,7 @@ export function GameGrid({ category }: GameGridProps) {
     <>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {games.map((game) => (
-          <GameCard key={`${game.slug}-${game.name}`} game={game} />
+          <GameCard key={`${game.name}`} game={game} />
         ))}
       </div>
 
