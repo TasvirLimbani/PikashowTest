@@ -112,13 +112,15 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-2 md:gap-4">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group flex-shrink-0">
-          <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-600 rounded-lg flex items-center justify-center transform group-hover:scale-110 transition-transform">
-            <span className="text-xl font-bold text-white">G</span>
-          </div>
-          <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent hidden sm:inline">
-            GameZone
-          </span>
-        </Link>
+           <div className="w-10 h-10 rounded-lg flex items-center justify-center transform group-hover:scale-110 transition-transform">
+             <span className="text-xl font-bold text-white">
+               <img src="/Logo.png" alt="Logo" />
+             </span>
+           </div>
+           <span className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent hidden sm:inline">
+             PikaShowGames
+           </span>
+         </Link>
 
         {/* Search Bar - Hidden on mobile, shown on md and up */}
         <div className="hidden md:flex flex-1 mx-4">
