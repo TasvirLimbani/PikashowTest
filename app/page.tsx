@@ -5,6 +5,7 @@ import { Header } from "@/components/header"
 import { CategoryFilter } from "@/components/category-filter"
 import { GameGrid } from "@/components/game-grid"
 import { Footer } from "@/components/footer"
+export const dynamic = "force-dynamic"
 
 import { useSearchParams } from "next/navigation"
 export default function Home() {
