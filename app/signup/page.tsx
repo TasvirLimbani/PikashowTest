@@ -53,6 +53,7 @@ export default function SignupPage() {
       })
 
       router.push("/")
+      window.location.replace("/")
     } catch (err: any) {
       setError(err.message || "Failed to create account")
     } finally {

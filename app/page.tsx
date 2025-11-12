@@ -1,13 +1,23 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Header } from "@/components/header"
 import { CategoryFilter } from "@/components/category-filter"
 import { GameGrid } from "@/components/game-grid"
 import { Footer } from "@/components/footer"
 
+import { useSearchParams } from "next/navigation"
 export default function Home() {
-  const [selectedCategory, setSelectedCategory] = useState("all")
+  // const [selectedCategory, setSelectedCategory] = useState("all")
+  const searchParams = useSearchParams()
+  const categoryFromURL = searchParams.get("category") || "all"
+
+  const [selectedCategory, setSelectedCategory] = useState(categoryFromURL)
+
+  useEffect(() => {
+    setSelectedCategory(categoryFromURL)
+  }, [categoryFromURL])
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex flex-col">

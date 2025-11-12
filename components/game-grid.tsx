@@ -19,6 +19,7 @@ export function GameGrid({ category }: GameGridProps) {
     setGames([])
     setPage(0)
     setHasMore(true)
+    console.log("category changed:", category,page);
   }, [category])
 
   useEffect(() => {
@@ -32,12 +33,22 @@ export function GameGrid({ category }: GameGridProps) {
           limit: "20",
           category,
         })
+        if(category === "all") {
+          const res = await fetch(`/api/games?${params}`)
+          const data = await res.json()
+          console.log("appi check hardi1 ",data);
+          setGames((prev) => [...prev, ...data.games])
+          setHasMore(data.hasMore)
+        }
+        else{
+          const res = await fetch(`https://raw.githubusercontent.com/TasvirLimbani/Atme/refs/heads/main/category/${category}.json`)
+          const data = await res.json()
+          console.log("appi check hardi2 ",data);
+          setGames(data?.data?.games)
+          setHasMore(false)
+        }
 
-        const res = await fetch(`/api/games?${params}`)
-        const data = await res.json()
-
-        setGames((prev) => [...prev, ...data.games])
-        setHasMore(data.hasMore)
+       
       } catch (error) {
         console.error("Failed to load games:", error)
       } finally {

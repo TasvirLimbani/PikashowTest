@@ -50,7 +50,7 @@ export function GameCard({ game }: GameCardProps) {
           <div className="flex items-center justify-between mt-2 text-xs text-slate-400">
             <span className="flex items-center gap-1">
               <Heart className="w-3 h-3 text-pink-500" />
-              {game.likes.toLocaleString()}
+              {game?.likes?.toLocaleString()}
             </span>
             <span>⭐ {game.manualRating}</span>
           </div>

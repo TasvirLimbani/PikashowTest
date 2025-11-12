@@ -44,7 +44,7 @@ export default function ContactPage() {
           <div className="bg-slate-800/50 backdrop-blur border border-purple-500/30 rounded-xl p-6 text-center">
             <Phone className="w-12 h-12 text-purple-400 mx-auto mb-4" />
             <h3 className="text-lg font-bold text-white mb-2">Phone</h3>
-            <p className="text-slate-300">+1 (555) 123-4567</p>
+            <p className="text-slate-300">+91 96649 17815</p>
           </div>
 
           <div className="bg-slate-800/50 backdrop-blur border border-purple-500/30 rounded-xl p-6 text-center">

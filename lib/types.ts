@@ -3,6 +3,13 @@ export interface Category {
   name: string
   slug: string
 }
+export interface CategoryGame {
+  _id: string
+  name: string
+  slug: string
+  image: string
+  totalPlayed: number
+}
 
 export interface Game {
   name: string

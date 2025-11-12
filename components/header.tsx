@@ -105,6 +105,7 @@ export function Header() {
   const handleLogout = async () => {
     await signOut(auth)
     router.push("/login")
+    window.location.replace("/")
   }
 
   return (

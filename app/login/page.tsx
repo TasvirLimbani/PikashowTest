@@ -33,6 +33,8 @@ export default function LoginPage() {
     try {
       await signInWithEmailAndPassword(auth, email, password)
       router.push("/")
+      window.location.replace("/")
+
     } catch (err: any) {
       setError(err.message || "Failed to login")
     } finally {

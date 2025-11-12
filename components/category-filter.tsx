@@ -48,7 +48,7 @@ export function CategoryFilter({ onCategoryChange, selectedCategory }: CategoryF
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center gap-2 overflow-x-auto py-3 scrollbar-hide">
           <button
-            onClick={() => onCategoryChange("all")}
+            onClick={() => window.location.reload()}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg whitespace-nowrap transition-all ${
               selectedCategory === "all"
                 ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white"
@@ -71,7 +71,12 @@ export function CategoryFilter({ onCategoryChange, selectedCategory }: CategoryF
                     : "text-slate-300 hover:text-white hover:bg-slate-800/50"
                 }`}
               >
-                {icon}
+                {/* {icon} */}
+                <img
+  src={`https://images.atmegame.com/cat/${category.slug}.png`}
+  alt={category.name}
+  className="w-6 h-6 object-contain"
+/>
                 <span className="capitalize text-sm font-medium">{category.name}</span>
               </button>
             )

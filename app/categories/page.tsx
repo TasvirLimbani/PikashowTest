@@ -51,7 +51,12 @@ export default function CategoriesPage() {
             {categories.map((category) => (
               <Link key={category._id} href={`/?category=${category.slug}`}>
                 <div className="group p-6 bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg border border-purple-500/20 hover:border-purple-500/50 transition-all hover:shadow-lg hover:shadow-purple-500/20 cursor-pointer">
-                  <div className="flex items-center justify-between mb-4">
+                <img
+  src={`https://images.atmegame.com/cat/${category.slug}.png`}
+  alt={category.name}
+  className="w-10 h-10 object-contain"
+/> <div className="flex items-center justify-between mb-4">
+                    
                     <h3 className="text-xl font-bold text-white capitalize">{category.name}</h3>
                     <ArrowRight className="w-5 h-5 text-purple-400 group-hover:translate-x-2 transition-transform" />
                   </div>
