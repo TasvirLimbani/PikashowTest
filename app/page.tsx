@@ -1,54 +1,3 @@
-// "use client"
-
-// import { useEffect, useState } from "react"
-// import { Header } from "@/components/header"
-// import { CategoryFilter } from "@/components/category-filter"
-// import { GameGrid } from "@/components/game-grid"
-// import { Footer } from "@/components/footer"
-// export const dynamic = "force-dynamic"
-
-// import { useSearchParams } from "next/navigation"
-// export default function Home() {
-//   // const [selectedCategory, setSelectedCategory] = useState("all")
-//   const searchParams = useSearchParams()
-//   const categoryFromURL = searchParams.get("category") || "all"
-
-//   const [selectedCategory, setSelectedCategory] = useState(categoryFromURL)
-
-//   useEffect(() => {
-//     setSelectedCategory(categoryFromURL)
-//   }, [categoryFromURL])
-
-
-//   return (
-//     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex flex-col">
-//       <Header />
-
-//       {/* Fixed Category Filter */}
-//       <CategoryFilter selectedCategory={selectedCategory} onCategoryChange={setSelectedCategory} />
-
-//       <main className="max-w-7xl mx-auto px-4 py-12 flex-1 w-full">
-//         {/* Hero Section */}
-//         <div className="mb-12">
-//           <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
-//             Play{" "}
-//             <span className="bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
-//               Amazing Games
-//             </span>
-//           </h1>
-//           <p className="text-slate-400 text-lg">Discover thousands of free online games</p>
-//         </div>
-
-//         {/* Games Grid */}
-//         <GameGrid category={selectedCategory} />
-//       </main>
-
-//       <Footer />
-//     </div>
-//   )
-// }
-
-
 
 
 "use client"
@@ -82,6 +31,7 @@ function HomeInner() {
               Amazing Games
             </span>
           </h1>
+          <h1 className="m-0 p-0"></h1>
           <p className="text-slate-400 text-lg">Discover thousands of free online games</p>
         </div>
         <GameGrid category={selectedCategory} />
