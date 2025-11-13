@@ -21,6 +21,9 @@ export interface Game {
   ownGame: boolean
   addDate: string
   script?: string
+  metaTitle?: string
+  metaDesc?: string
+  metaKeyword?: string
 }
 
 export interface GameDetails extends Game {

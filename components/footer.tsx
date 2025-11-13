@@ -14,7 +14,10 @@ export function Footer() {
       {/* Footer content */}
       <div className="bg-blue-600 text-white px-6 py-12 md:py-16">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+          <p>Welcome to PikaShowGames, the ultimate destination to play free online games instantly! Our browser gaming platform offers a massive collection of HTML5 games that run smoothly on desktop and mobile—no downloads, no installations, just pure fun. Discover hundreds of exciting titles including action games, racing games, puzzle challenges, and adventure quests, all free to play online. At PikaShowGames, we make online gaming fast, safe, and accessible for everyone. Whether you’re killing time or chasing high scores, you’ll find endless entertainment on our free gaming website. Join thousands of players worldwide and enjoy the best online web games anytime, anywhere. Play instantly and experience the thrill of gaming like never before at PikaShowGames.com!</p>
+          <br />
+          <p>PikaShowGames is your one-stop online gaming platform where you can play games online for free with zero downloads. Enjoy a growing library of browser games across popular categories like sports, shooting, strategy, arcade, and multiplayer games. Each game is powered by HTML5 technology, ensuring fast performance and smooth gameplay on any device. Our goal is to provide players with high-quality, ad-light, and secure web games for all age groups. We update our site regularly with trending new releases so you always have something fresh to play. If you love free online games, PikaShowGames is the best place to explore, compete, and have fun every day—directly in your browser!</p>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 mt-12">
             {/* Brand section */}
             <div className="md:col-span-1">
               <div className="flex items-center gap-3 mb-4">
@@ -101,35 +104,40 @@ export function Footer() {
               <h4 className="text-lg font-bold mb-4">Follow Us</h4>
               <div className="flex flex-wrap gap-3">
                 <a
-                  href="#"
+                  href="https://www.instagram.com/the.circuit.club/"
+                  target="_blank"
                   className="flex items-center gap-2 bg-white text-blue-600 px-4 py-2 rounded-full font-semibold hover:bg-blue-50 transition-colors"
                 >
                   <Facebook className="w-5 h-5" />
                   <span>Facebook</span>
                 </a>
                 <a
-                  href="#"
+                  href="https://www.instagram.com/stoicism_arc/"
+                  target="_blank"
                   className="flex items-center gap-2 bg-white text-blue-600 px-4 py-2 rounded-full font-semibold hover:bg-blue-50 transition-colors"
                 >
                   <Twitter className="w-5 h-5" />
                   <span>Twitter</span>
                 </a>
                 <a
-                  href="#"
+                  href="https://www.instagram.com/stoicism_arc/"
+                  target="_blank"
                   className="flex items-center gap-2 bg-white text-blue-600 px-4 py-2 rounded-full font-semibold hover:bg-blue-50 transition-colors"
                 >
                   <Instagram className="w-5 h-5" />
                   <span>Instagram</span>
                 </a>
                 <a
-                  href="#"
+                  href="https://www.instagram.com/stoicism_arc/"
+                  target="_blank"
                   className="flex items-center gap-2 bg-white text-blue-600 px-4 py-2 rounded-full font-semibold hover:bg-blue-50 transition-colors"
                 >
                   <Linkedin className="w-5 h-5" />
                   <span>LinkedIn</span>
                 </a>
                 <a
-                  href="#"
+                  href="https://www.instagram.com/the.circuit.club/"
+                  target="_blank"
                   className="flex items-center gap-2 bg-white text-blue-600 px-4 py-2 rounded-full font-semibold hover:bg-blue-50 transition-colors"
                 >
                   <Pinterest className="w-5 h-5" />
@@ -144,6 +152,9 @@ export function Footer() {
             <div className="flex flex-col md:flex-row justify-between items-center text-blue-100 text-sm">
               <p>Copyright © PikaShowGames 2025</p>
               <div className="flex gap-6 mt-4 md:mt-0">
+                <Link href="/disclaimer" className="hover:text-white transition-colors">
+                  Disclaimer
+                </Link>
                 <Link href="/terms" className="hover:text-white transition-colors">
                   Terms and conditions
                 </Link>

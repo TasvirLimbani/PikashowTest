@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
+import Head from "next/head"
 import { Header } from "@/components/header"
 import { GameStats } from "@/components/game-stats"
 import { GamePlayer } from "@/components/game-player"
@@ -23,6 +24,8 @@ export default function GamePage() {
   const [isFavorited, setIsFavorited] = useState(false)
   const [relatedGames, setRelatedGames] = useState<any[]>([])
   const [showInstructions, setShowInstructions] = useState(false)
+  const [mTitle, setMTitle] = useState('')
+  const [mDesc, setMDesc] = useState('')
 
   const slug = params?.slug as string
 
@@ -34,13 +37,10 @@ export default function GamePage() {
         const res = await fetch(`/api/games/${slug}`)
         const data = await res.json()
 
-        console.log("[v0] Game data received:", {
-          name: data.name,
-          hasScript: !!data.script,
-          scriptLength: data.script?.length || 0,
-          firstChars: data.script?.substring(0, 50) || "NO SCRIPT",
-          url: data.url?.substring(0, 50) || "NO URL",
-        })
+        const mdesc = data.metaDesc?.replaceAll("atmegame.com", "pikashowgames.com");
+        const mtitle = data.metaTitle?.replaceAll("Atmegame.com", "pikashowgames.com");
+        setMTitle(mtitle);
+        setMDesc(mdesc);
 
         setGame(data)
 
@@ -117,6 +117,24 @@ export default function GamePage() {
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex flex-col">
       <Header />
 
+      <Head>
+        <title>{game ? `${game.name} | PikaShow Games` : "PikaShow Games"}</title>
+        <meta
+          name="description"
+          content={mDesc}
+        />
+        <meta name="keyword" content={game.metaKeyword} />
+        <meta property="og:title" content={mTitle} />
+        <meta
+          property="og:description"
+          content={mDesc}
+        />
+        {game?.image && <meta property="og:image" content={game.image} />}
+        <meta property="og:type" content="website" />
+        <meta property="og:keyword" content={game.metaKeyword || "PikaShowGames, free online games, play games online, browser games, HTML5 games, no download games"} />
+      </Head>
+
+
       <main className="max-w-7xl mx-auto px-4 py-12 flex-1">
         {/* Game Header */}
         <div className="mb-8">
@@ -157,7 +175,7 @@ export default function GamePage() {
 
         {/* Game Player - Pass both script and url properties */}
         <div className="mb-12">
-          <GamePlayer gameName={game.name} gameSlug={game.slug} gameUrl={game.script || game.url || "" } gameImage={game.image} />
+          <GamePlayer gameName={game.name} gameSlug={game.slug} gameUrl={game.script || game.url || ""} gameImage={game.image} />
         </div>
 
         {/* Game Stats */}
@@ -173,13 +191,13 @@ export default function GamePage() {
               `Experience ${game.name}, an exciting game with ${game.totalPlayed.toLocaleString()} total plays and a ${game.manualRating}/5 rating. With ${game.likes.toLocaleString()} likes, this game is loved by players worldwide.`}
           </p> */}
           <div
-  className="text-slate-300 leading-relaxed mb-4"
-  dangerouslySetInnerHTML={{
-    __html:
-      game.description ||
-      `Experience ${game.name}, an exciting game with ${game.totalPlayed.toLocaleString()} total plays and a ${game.manualRating}/5 rating. With ${game.likes.toLocaleString()} likes, this game is loved by players worldwide.`,
-  }}
-/>
+            className="text-slate-300 leading-relaxed mb-4"
+            dangerouslySetInnerHTML={{
+              __html:
+                game.description ||
+                `Experience ${game.name}, an exciting game with ${game.totalPlayed.toLocaleString()} total plays and a ${game.manualRating}/5 rating. With ${game.likes.toLocaleString()} likes, this game is loved by players worldwide.`,
+            }}
+          />
           {game.category && (
             <div className="flex items-center gap-4 text-sm text-slate-400">
               <span>

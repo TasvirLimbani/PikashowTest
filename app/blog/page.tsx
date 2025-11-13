@@ -14,6 +14,7 @@ const blogPosts = [
     date: "November 15, 2025",
     category: "Gaming",
     slug: "top-10-games-this-month",
+    image: "Blog_1.jpg",
   },
   {
     id: 2,
@@ -23,6 +24,7 @@ const blogPosts = [
     date: "November 10, 2025",
     category: "Tips",
     slug: "gaming-tips-improve-skills",
+    image: "Blog_2.jpg",
   },
   {
     id: 3,
@@ -32,6 +34,8 @@ const blogPosts = [
     date: "November 5, 2025",
     category: "News",
     slug: "history-of-online-gaming",
+    image: "Blog_3.jpg",
+
   },
   {
     id: 4,
@@ -41,6 +45,7 @@ const blogPosts = [
     date: "October 28, 2025",
     category: "Equipment",
     slug: "best-gaming-setups-2025",
+    image: "Blog_4.jpg",
   },
   {
     id: 5,
@@ -50,6 +55,7 @@ const blogPosts = [
     date: "October 20, 2025",
     category: "Development",
     slug: "game-development-concept-to-launch",
+    image: "Blog_5.jpg",
   },
   {
     id: 6,
@@ -59,6 +65,7 @@ const blogPosts = [
     date: "October 15, 2025",
     category: "Community",
     slug: "community-spotlight-amazing-players",
+    image: "Blog_6.jpg",
   },
 ]
 
@@ -76,9 +83,10 @@ export default function BlogPage() {
               key={post.id}
               className="bg-slate-800/50 backdrop-blur border border-purple-500/30 rounded-xl overflow-hidden hover:border-purple-500 transition-colors group"
             >
-              <div className="h-48 bg-gradient-to-br from-purple-600 to-pink-600 relative overflow-hidden">
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
-              </div>
+              <img src={post.image} className="h-48 w-full object-cover relative overflow-hidden">
+                {/* <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" /> */}
+                {/* <img src={post.image} alt="" /> */}
+              </img>
 
               <div className="p-6">
                 <div className="flex items-center gap-3 mb-3">
@@ -104,12 +112,12 @@ export default function BlogPage() {
                   </div>
                 </div>
 
-                <Link
+                 <Link
                   href={`/blog/${post.slug}`}
                   className="inline-block text-purple-400 hover:text-purple-300 font-semibold text-sm transition-colors"
                 >
                   Read More →
-                </Link>
+                </Link> 
               </div>
             </article>
           ))}

@@ -65,7 +65,7 @@ export default function SignupPage() {
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex flex-col">
       <Header />
 
-      <main className="flex items-center justify-center flex-1 px-4">
+      <main className="flex items-center justify-center flex-1 px-4 py-12">
         <div className="w-full max-w-md">
           <div className="bg-slate-800/50 backdrop-blur-md border border-purple-500/20 rounded-2xl p-8">
             <h1 className="text-3xl font-bold text-white mb-2">Join PikaShowGames</h1>

@@ -11,6 +11,29 @@ export const metadata: Metadata = {
   title: "PikaShowGames - Play Free Online Games",
   description:
     "Play thousands of free online games instantly without download. ActionAdventure, Puzzle, Sports games and more on PikaShowGames.",
+  keywords: [
+    "PikaShowGames",
+    "free online games",
+    "play games online",
+    "browser games",
+    "HTML5 games",
+    "no download games",
+  ],
+  openGraph: {
+    title: "PikaShowGames – Play Free Online Games Instantly",
+    description:
+      "Enjoy thousands of free browser games. Play instantly without download on mobile and desktop at PikaShowGames!",
+    url: "https://www.pikashowgames.com",
+    siteName: "PikaShowGames",
+    images: [
+      {
+        url: "/Logo.png",
+        width: 1200,
+        height: 630,
+        alt: "PikaShowGames Thumbnail",
+      },
+    ],
+  },
   generator: "PikaShowGames",
   icons: {
     icon: [
