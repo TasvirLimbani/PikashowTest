@@ -31,7 +31,6 @@ function HomeInner() {
               Amazing Games
             </span>
           </h1>
-          <h1 className="m-0 p-0"></h1>
           <p className="text-slate-400 text-lg">Discover thousands of free online games</p>
         </div>
         <GameGrid category={selectedCategory} />
