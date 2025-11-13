@@ -69,26 +69,26 @@ export function Footer() {
               <h4 className="text-lg font-bold mb-4">Games</h4>
               <ul className="space-y-2">
                 <li>
-                  <Link href="/categories?category=sports" className="text-blue-100 hover:text-white transition-colors">
+                  <Link href="?category=sports" className="text-blue-100 hover:text-white transition-colors">
                     Sports Games
                   </Link>
                 </li>
                 <li>
-                  <Link href="/categories?category=action" className="text-blue-100 hover:text-white transition-colors">
-                    Action Games
+                  <Link href="?category=hockey" className="text-blue-100 hover:text-white transition-colors">
+                    Hockey Games
                   </Link>
                 </li>
                 <li>
-                  <Link href="/categories?category=puzzle" className="text-blue-100 hover:text-white transition-colors">
+                  <Link href="?category=puzzle" className="text-blue-100 hover:text-white transition-colors">
                     Puzzle Games
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/categories?category=adventure"
+                    href="?category=bowling"
                     className="text-blue-100 hover:text-white transition-colors"
                   >
-                    Adventure Games
+                    Bowling Games
                   </Link>
                 </li>
                 <li>

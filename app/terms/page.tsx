@@ -8,7 +8,7 @@ export default function TermsAndConditionsPage() {
       <main className="max-w-6xl mx-auto px-6 py-16">
         <div className="bg-slate-800/50 backdrop-blur border border-purple-500/30 rounded-xl p-8 md:p-12">
           <div className="mb-12 text-center">
-            <h1 className="text-6xl font-bold text-white mb-4">Terms and Conditions</h1>
+            <h1 className="sm:text-6xl text-4xl font-bold text-white mb-4 ">Terms and Conditions</h1>
             <p className="text-slate-300 text-lg">Please read these terms carefully</p>
             <p className="text-slate-400 text-sm">Last updated: November 2024</p>
           </div>
@@ -16,8 +16,8 @@ export default function TermsAndConditionsPage() {
           {/* Content Sections */}
           <div className="space-y-8">
             {/* Acceptance of Terms */}
-            <section className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 hover:border-white/30 transition-all duration-300">
-              <div className="flex items-start gap-4">
+            <section className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl sm:p-8 p-4 hover:border-white/30 transition-all duration-300">
+              <div className="flex items-start sm:gap-2 gap-4">
                 <div className="text-2xl font-bold text-purple-400 min-w-fit">1.</div>
                 <div className="flex-1">
                   <h2 className="text-3xl font-bold text-white mb-4">Acceptance of Terms</h2>
@@ -30,7 +30,7 @@ export default function TermsAndConditionsPage() {
             </section>
 
             {/* Use License */}
-            <section className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 hover:border-white/30 transition-all duration-300">
+            <section className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl  sm:p-8 p-4 hover:border-white/30 transition-all duration-300">
               <div className="flex items-start gap-4">
                 <div className="text-2xl font-bold text-purple-400 min-w-fit">2.</div>
                 <div className="flex-1">
@@ -67,7 +67,7 @@ export default function TermsAndConditionsPage() {
             </section>
 
             {/* Disclaimer */}
-            <section className="backdrop-blur-md bg-gradient-to-br from-red-500/10 to-pink-500/10 border border-red-300/30 rounded-2xl p-8 hover:border-red-300/50 transition-all duration-300">
+            <section className="backdrop-blur-md bg-gradient-to-br from-red-500/10 to-pink-500/10 border border-red-300/30 rounded-2xl  sm:p-8 p-4 hover:border-red-300/50 transition-all duration-300">
               <div className="flex items-start gap-4">
                 <div className="text-2xl font-bold text-red-400 min-w-fit">3.</div>
                 <div className="flex-1">
@@ -86,7 +86,7 @@ export default function TermsAndConditionsPage() {
             </section>
 
             {/* Limitations */}
-            <section className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 hover:border-white/30 transition-all duration-300">
+            <section className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl  sm:p-8 p-4 hover:border-white/30 transition-all duration-300">
               <div className="flex items-start gap-4">
                 <div className="text-2xl font-bold text-purple-400 min-w-fit">4.</div>
                 <div className="flex-1">
@@ -101,7 +101,7 @@ export default function TermsAndConditionsPage() {
             </section>
 
             {/* Accuracy of Materials */}
-            <section className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 hover:border-white/30 transition-all duration-300">
+            <section className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl  sm:p-8 p-4 hover:border-white/30 transition-all duration-300">
               <div className="flex items-start gap-4">
                 <div className="text-2xl font-bold text-purple-400 min-w-fit">5.</div>
                 <div className="flex-1">
@@ -116,7 +116,7 @@ export default function TermsAndConditionsPage() {
             </section>
 
             {/* Links */}
-            <section className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 hover:border-white/30 transition-all duration-300">
+            <section className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl  sm:p-8 p-4 hover:border-white/30 transition-all duration-300">
               <div className="flex items-start gap-4">
                 <div className="text-2xl font-bold text-purple-400 min-w-fit">6.</div>
                 <div className="flex-1">
@@ -131,7 +131,7 @@ export default function TermsAndConditionsPage() {
             </section>
 
             {/* Modifications */}
-            <section className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 hover:border-white/30 transition-all duration-300">
+            <section className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl  sm:p-8 p-4 hover:border-white/30 transition-all duration-300">
               <div className="flex items-start gap-4">
                 <div className="text-2xl font-bold text-purple-400 min-w-fit">7.</div>
                 <div className="flex-1">
@@ -145,7 +145,7 @@ export default function TermsAndConditionsPage() {
             </section>
 
             {/* Governing Law */}
-            <section className="backdrop-blur-md bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-white/20 rounded-2xl p-8">
+            <section className="backdrop-blur-md bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-white/20 rounded-2xl  sm:p-8 p-4">
               <div className="flex items-start gap-4">
                 <div className="text-2xl font-bold text-purple-400 min-w-fit">8.</div>
                 <div className="flex-1">

@@ -78,15 +78,15 @@ export default function SitemapPage() {
               <ul className="space-y-2">
                 <li>
                   <Link
-                    href="/categories?category=action"
+                    href="/?category=bowling"
                     className="text-slate-300 hover:text-purple-400 transition-colors"
                   >
-                    Action Games
+                    Bowling Games
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/categories?category=puzzle"
+                    href="/?category=puzzle"
                     className="text-slate-300 hover:text-purple-400 transition-colors"
                   >
                     Puzzle Games
@@ -94,7 +94,7 @@ export default function SitemapPage() {
                 </li>
                 <li>
                   <Link
-                    href="/categories?category=sports"
+                    href="/?category=sports"
                     className="text-slate-300 hover:text-purple-400 transition-colors"
                   >
                     Sports Games
@@ -102,18 +102,18 @@ export default function SitemapPage() {
                 </li>
                 <li>
                   <Link
-                    href="/categories?category=adventure"
+                    href="/?category=hockey"
                     className="text-slate-300 hover:text-purple-400 transition-colors"
                   >
-                    Adventure Games
+                    Hockey Games
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/categories?category=casual"
+                    href="/?category=basketball"
                     className="text-slate-300 hover:text-purple-400 transition-colors"
                   >
-                    Casual Games
+                    Basketball Games
                   </Link>
                 </li>
               </ul>
