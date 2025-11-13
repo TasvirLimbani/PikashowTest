@@ -172,7 +172,7 @@ export default function AboutUsPage() {
                 <p className="text-white font-semibold text-lg">PikaShowGames Privacy Team</p>
                 <p className="text-slate-300 flex items-center gap-2 overflow-scroll">
                   <span className="text-purple-400">📧</span>
-                  Email: privacy@PikaShowGames.com
+                  Email: radhesoftwaresolutions2025@gmail.com
                 </p>
                 <p className="text-slate-300 flex items-center gap-2">
                   <span className="text-purple-400">⏱️</span>
