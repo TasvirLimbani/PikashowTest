@@ -4,6 +4,9 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import Script from "next/script"
 import "./globals.css"
+import { useEffect } from "react"
+import { analytics } from "@/lib/firebase"
+import { logEvent } from "firebase/analytics"
 
 const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
@@ -60,6 +63,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+
+  useEffect(() => {
+    if (analytics) {
+      logEvent(analytics, "play_game", {
+        gameId: "test_game_123",
+      })
+    }
+  }, [])
+
   return (
     <html lang="en">
       <body className={`font-sans antialiased`}>
