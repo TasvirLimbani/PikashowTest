@@ -39,19 +39,19 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/Logo.png",
+        url: "/favicon.png",
         media: "(prefers-color-scheme: light)",
       },
       {
-        url: "/Logo.png",
+        url: "/favicon.png",
         media: "(prefers-color-scheme: dark)",
       },
       {
-        url: "/Logo.png",
+        url: "/favicon.png",
         type: "image/svg+xml",
       },
     ],
-    apple: "/Logo.png",
+    apple: "/favicon.png",
   },
 }
 
