@@ -20,7 +20,7 @@ export function Footer() {
           {/* <HorizontalAd /> */}
           <p>PikaShowGames is your one-stop online gaming platform where you can play games online for free with zero downloads. Enjoy a growing library of browser games across popular categories like sports, shooting, strategy, arcade, and multiplayer games. Each game is powered by HTML5 technology, ensuring fast performance and smooth gameplay on any device. Our goal is to provide players with high-quality, ad-light, and secure web games for all age groups. We update our site regularly with trending new releases so you always have something fresh to play. If you love free online games, PikaShowGames is the best place to explore, compete, and have fun every day—directly in your browser!</p>
           {/* <HorizontalAd /> */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 mt-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 mt-12">
             {/* Brand section */}
             <div className="md:col-span-1">
               <div className="flex items-center gap-3 mb-4">
@@ -68,7 +68,7 @@ export function Footer() {
             </div>
 
             {/* Games section */}
-            <div>
+            {/* <div>
               <h4 className="text-lg font-bold mb-4">Games</h4>
               <ul className="space-y-2">
                 <li>
@@ -100,7 +100,7 @@ export function Footer() {
                   </Link>
                 </li>
               </ul>
-            </div>
+            </div> */}
 
             {/* Social section */}
             <div>
