@@ -9,26 +9,26 @@ declare global {
 }
 
 export default function HorizontalAd() {
-  useEffect(() => {
-    try {
-      if (typeof window !== 'undefined') {
-        (window.adsbygoogle = window.adsbygoogle || []).push({})
-      }
-    } catch (err) {
-      console.error('AdSense error:', err)
-    }
-  }, [])
+  // useEffect(() => {
+  //   try {
+  //     if (typeof window !== 'undefined') {
+  //       (window.adsbygoogle = window.adsbygoogle || []).push({})
+  //     }
+  //   } catch (err) {
+  //     console.error('AdSense error:', err)
+  //   }
+  // }, [])
 
   return (
-    <div className="w-full my-4">
-      <ins
-        className="adsbygoogle"
-        style={{ display: 'block' }}
-        data-ad-client="ca-pub-3990057144186847"
-        data-ad-slot="6932865815"
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      />
-    </div>
+    // <div className="w-full my-4">
+    //   <ins
+    //     className="adsbygoogle"
+    //     style={{ display: 'block' }}
+    //     data-ad-client="ca-pub-3990057144186847"
+    //     data-ad-slot="6932865815"
+    //     data-ad-format="auto"
+    //     data-full-width-responsive="true"
+    //   />
+    // </div>
   )
 }
