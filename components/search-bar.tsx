@@ -150,6 +150,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
         <input
           type="text"
           placeholder="Search games..."
+          aria-label="Search games"
           value={query}
           onChange={(e) => {
             setQuery(e.target.value)
@@ -165,6 +166,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
               setQuery("")
               setResults([])
             }}
+            aria-label="Clear search query"
             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-200"
           >
             <X className="w-5 h-5" />
@@ -179,8 +181,11 @@ export function SearchBar({ onSearch }: SearchBarProps) {
             <div className="p-4 text-center text-slate-400 text-sm">Searching...</div>
           ) : results.length > 0 ? (
             <div className="py-1">
-              {results.map((game) => (
-                <Link key={game.slug} href={`/game/${game.slug}`}>
+            {results.map((game, index) => (
+  <Link
+    key={game.id ?? game.slug ?? index}
+    href={`/game/${game.id ?? game.slug}`}
+  >
                   <div className="px-4 py-2 hover:bg-slate-800 transition-colors cursor-pointer flex items-center gap-3">
                     <img
                       src={`https://slides.atmegame.com/slide/${game.image}_slide.jpg`}

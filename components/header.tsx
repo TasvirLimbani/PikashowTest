@@ -25,9 +25,7 @@ export function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group flex-shrink-0">
            <div className="w-10 h-10 rounded-lg flex items-center justify-center transform group-hover:scale-110 transition-transform">
-             <span className="text-xl font-bold text-white">
-               <img src="/Logo.png" alt="Logo" />
-             </span>
+             <img src="/Logo.png" alt="PikaShowGames Official Logo" className="w-full h-full object-contain" />
            </div>
            <span className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent hidden sm:inline">
              PikaShowGames

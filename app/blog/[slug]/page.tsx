@@ -324,11 +324,81 @@ export default function BlogDetailsPage() {
         )
     }
 
+    const blogSchemas = [
+        {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": post.title,
+            "description": post.excerpt,
+            "image": `https://www.pikashowgames.com${post.image}`,
+            "datePublished": "2025-11-15T08:00:00+00:00",
+            "author": {
+                "@type": "Person",
+                "name": post.author
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "PikaShowGames",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://www.pikashowgames.com/Logo.png"
+                }
+            },
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": `https://www.pikashowgames.com/blog/${slug}`
+            }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": "https://www.pikashowgames.com"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Blog",
+                    "item": "https://www.pikashowgames.com/blog"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 3,
+                    "name": post.title,
+                    "item": `https://www.pikashowgames.com/blog/${slug}`
+                }
+            ]
+        }
+    ]
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex flex-col">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchemas) }}
+            />
             <Header />
 
             <main className="flex-1 max-w-4xl mx-auto px-4 py-12 w-full">
+                {/* Visual Breadcrumb Navigation */}
+                <nav aria-label="Breadcrumb" className="mb-6">
+                    <ol className="flex items-center gap-2 text-xs text-slate-400">
+                        <li>
+                            <Link href="/" className="hover:text-purple-300 transition-colors">Home</Link>
+                        </li>
+                        <li>/</li>
+                        <li>
+                            <Link href="/blog" className="hover:text-purple-300 transition-colors">Blog</Link>
+                        </li>
+                        <li>/</li>
+                        <li className="text-purple-400 font-medium truncate max-w-xs">{post.title}</li>
+                    </ol>
+                </nav>
+
                 {/* Back Button */}
                 <Link
                     href="/blog"

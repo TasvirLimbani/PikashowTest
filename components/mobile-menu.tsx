@@ -23,7 +23,12 @@ export function MobileMenu() {
   return (
     <>
       {/* Hamburger Button */}
-      <button className="md:hidden flex items-center justify-center" onClick={() => setIsOpen(!isOpen)}>
+      <button
+        className="md:hidden flex items-center justify-center p-2 rounded-lg hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-500"
+        onClick={() => setIsOpen(!isOpen)}
+        aria-label="Toggle navigation menu"
+        aria-expanded={isOpen}
+      >
         {isOpen ? <X className="w-6 h-6 text-white" /> : <Menu className="w-6 h-6 text-white" />}
       </button>
 
@@ -35,9 +40,9 @@ export function MobileMenu() {
             <Link href="/" onClick={() => setIsOpen(false)}>
               <div className="text-slate-300 hover:text-white transition-colors py-2">Home</div>
             </Link>
-            <Link href="/categories" onClick={() => setIsOpen(false)}>
+            {/* <Link href="/categories" onClick={() => setIsOpen(false)}>
               <div className="text-slate-300 hover:text-white transition-colors py-2">Categories</div>
-            </Link>
+            </Link> */}
             <Link href="/trending" onClick={() => setIsOpen(false)}>
               <div className="text-slate-300 hover:text-white transition-colors py-2">Trending</div>
             </Link>

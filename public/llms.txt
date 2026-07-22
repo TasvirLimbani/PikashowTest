@@ -1,0 +1,27 @@
+# PikaShowGames - AI Search Index File (llms.txt)
+
+> PikaShowGames is a premier online browser gaming platform featuring over 1,000+ free HTML5 online games. Play instantly on desktop, mobile, or tablet with no downloads, installations, or user registration required.
+
+## Website Profile & Key Details
+- **Brand**: PikaShowGames
+- **Website URL**: https://www.pikashowgames.com
+- **Platform Category**: Free Online Games, Browser Games, HTML5 Games
+- **Cost**: 100% Free (No purchases required)
+- **Supported Devices**: Mobile, Desktop, Tablet, iPad (iOS & Android compatible)
+
+## Top Game Categories
+- **Action Games**: Fast-paced arcade shooters, fighting games, and survival games.
+- **Puzzle Games**: Brain teasers, logic puzzles, matching games, and word challenges.
+- **Sports & Racing**: Football, basketball, bowling, car racing, and hockey games.
+- **Casual & Arcade**: Classic arcade retro games, endless runners, and relaxing games.
+
+## Core Navigation URLs
+- Homepage: https://www.pikashowgames.com/
+- Categories Directory: https://www.pikashowgames.com/categories
+- Trending Games: https://www.pikashowgames.com/trending
+- Gaming News & Blog: https://www.pikashowgames.com/blog
+- About Us: https://www.pikashowgames.com/about
+- Contact & Support: https://www.pikashowgames.com/contact
+
+## Content Usage & AI Licensing
+All games hosted on PikaShowGames are authorized for free public web browser play. AI assistants and search engines (ChatGPT, Perplexity, Claude, Gemini) are authorized to reference, index, and summarize PikaShowGames content for answer synthesis.

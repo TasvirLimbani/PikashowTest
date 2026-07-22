@@ -13,7 +13,10 @@ export function GameStats({ game }: GameStatsProps) {
       <div className="flex flex-col items-center gap-2">
         <div className="flex items-center gap-2 text-pink-500">
           <Heart className="w-5 h-5 fill-current" />
-          <span className="text-2xl font-bold">{game.likes.toLocaleString()}</span>
+          {/* <span className="text-2xl font-bold">{game.likes.toLocaleString()}</span> */}
+          <span className="text-2xl font-bold">
+  {(Number(game.likes ?? 0)).toLocaleString()}
+</span>
         </div>
         <p className="text-xs text-slate-400">Likes</p>
       </div>

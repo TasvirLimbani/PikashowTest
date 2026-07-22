@@ -15,8 +15,14 @@ export async function GET(request: Request) {
     }
 
     return Response.json({
-      results: games.slice(0, limit),
-      total: games.length,
+results: games.slice(0, limit).map((game: any) => ({
+  id: game.id,
+  slug: game.slug,
+  name: game.name,
+  image: game.image,
+  totalPlayed: Number(game.totalPlayed ?? 0),
+})),
+  total: games.length,
     })
   } catch (error) {
     return Response.json({ error: "Search failed" }, { status: 500 })

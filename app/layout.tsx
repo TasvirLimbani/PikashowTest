@@ -11,9 +11,13 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "PikaShowGames - Play Free Online Games",
+  metadataBase: new URL("https://www.pikashowgames.com"),
+  alternates: {
+    canonical: "./",
+  },
+  title: "Free Online Games - Play 1,000+ Browser Games | PikaShowGames",
   description:
-    "Play thousands of free online games instantly without download. Action, Adventure, Puzzle, Sports games and more on PikaShowGames.",
+    "Play 1,000+ free online games instantly with no downloads or installs required! Action, puzzle, sports & arcade browser games ready on PikaShowGames.",
   keywords: [
     "PikaShowGames",
     "free online games",
@@ -23,19 +27,27 @@ export const metadata: Metadata = {
     "no download games",
   ],
   openGraph: {
-    title: "PikaShowGames – Play Free Online Games Instantly",
+    title: "Free Online Games - Play 1,000+ Browser Games | PikaShowGames",
     description:
-      "Enjoy thousands of free browser games. Play instantly without download on mobile and desktop at PikaShowGames!",
+      "Play 1,000+ free online games instantly with no downloads or installs required! Action, puzzle, sports & arcade browser games ready on PikaShowGames.",
     url: "https://www.pikashowgames.com",
     siteName: "PikaShowGames",
+    type: "website",
     images: [
       {
         url: "/Logo.png",
         width: 1200,
         height: 630,
-        alt: "PikaShowGames Thumbnail",
+        alt: "PikaShowGames Official Logo",
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Free Online Games - Play 1,000+ Browser Games | PikaShowGames",
+    description:
+      "Play 1,000+ free online games instantly with no downloads or installs required! Action, puzzle, sports & arcade browser games ready on PikaShowGames.",
+    images: ["/Logo.png"],
   },
   generator: "PikaShowGames",
   icons: {
@@ -57,6 +69,36 @@ export const metadata: Metadata = {
   },
 }
 
+const globalSchemas = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "https://www.pikashowgames.com/#organization",
+    "name": "PikaShowGames",
+    "url": "https://www.pikashowgames.com",
+    "logo": "https://www.pikashowgames.com/Logo.png",
+    "sameAs": [
+      "https://www.instagram.com/the.circuit.club/",
+      "https://www.facebook.com/pikashowgames"
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://www.pikashowgames.com/#website",
+    "url": "https://www.pikashowgames.com",
+    "name": "PikaShowGames",
+    "publisher": {
+      "@id": "https://www.pikashowgames.com/#organization"
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.pikashowgames.com/?search={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+]
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -65,6 +107,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans antialiased`}>
+        <Script
+          id="global-json-ld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(globalSchemas) }}
+        />
 
         {/* 🔒 AdBlock Detection ADDED */}
         <AdBlockDetector>
@@ -73,43 +120,6 @@ export default function RootLayout({
         
         <Analytics />
 
-        {/* Disable Inspect Element & Right Click */}
-        {/* <Script id="disable-inspect" strategy="afterInteractive">
-          {`
-    // Disable right-click
-    document.addEventListener('contextmenu', event => event.preventDefault());
-
-    // Disable common inspect shortcuts (Windows + macOS)
-    document.onkeydown = function (e) {
-      if (
-        e.keyCode === 123 || // F12
-        (e.ctrlKey && e.shiftKey && e.keyCode === 73) || // Ctrl+Shift+I
-        (e.metaKey && e.shiftKey && e.keyCode === 67) || // Cmd+Shift+C (Mac)
-        (e.ctrlKey && e.shiftKey && e.keyCode === 67) || // Ctrl+Shift+C (Windows)
-        (e.metaKey && e.altKey && e.keyCode === 73) ||   // Cmd+Option+I
-        (e.ctrlKey && e.shiftKey && e.keyCode === 74) || // Ctrl+Shift+J
-        (e.ctrlKey && e.keyCode === 85) || // Ctrl+U
-        (e.metaKey && e.keyCode === 85)    // Cmd+U
-      ) {
-        e.preventDefault();
-        return false;
-      }
-    };
-
-    // Detect if DevTools is open and redirect
-    const detectDevTools = () => {
-      const threshold = 160;
-      const start = new Date().getTime();
-      debugger;
-      const end = new Date().getTime();
-      if (end - start > threshold) {
-        window.location.href = "/";
-      }
-    };
-    setInterval(detectDevTools, 1000);
-  `}
-        </Script> */}
-
         {/* Google AdSense */}
         <Script
           async
@@ -117,8 +127,6 @@ export default function RootLayout({
           crossOrigin="anonymous"
           strategy="afterInteractive"
         />
-
-
       </body>
     </html>
   )

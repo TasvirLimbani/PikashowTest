@@ -25,7 +25,7 @@ export function Footer() {
             <div className="md:col-span-1">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-white">
-                  <img src="/Logo.png" alt="Logo" />
+                  <img src="/Logo.png" alt="PikaShowGames Official Logo" className="w-full h-full object-contain" />
                 </div>
                 <h3 className="text-2xl font-bold">PikaShowGames</h3>
               </div>
@@ -59,11 +59,11 @@ export function Footer() {
                     Blog
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link href="/sitemap" className="text-blue-100 hover:text-white transition-colors">
                     Sitemap
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
 
