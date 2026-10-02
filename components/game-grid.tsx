@@ -107,9 +107,11 @@ import { GameCard } from "./game-card"
 interface GameGridProps {
   category: string
   searchQuery?: string
+  layout?: "rail" | "grid"
+  showLoadMore?: boolean
 }
 
-export function GameGrid({ category, searchQuery = "" }: GameGridProps) {
+export function GameGrid({ category, searchQuery = "", layout = "rail", showLoadMore = true }: GameGridProps) {
   const [games, setGames] = useState<Game[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
@@ -165,7 +167,7 @@ export function GameGrid({ category, searchQuery = "" }: GameGridProps) {
   return (
     <>
       {/* ✅ GAME GRID */}
-      <div className="flex snap-x gap-3 overflow-x-auto pb-2 scrollbar-hide">
+      <div className={layout === "grid" ? "grid grid-cols-2 gap-3 pb-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5" : "flex snap-x gap-3 overflow-x-auto pb-2 scrollbar-hide"}>
         {games.map((game) => (
           <GameCard key={game.id} game={game} />
         ))}
@@ -184,7 +186,7 @@ export function GameGrid({ category, searchQuery = "" }: GameGridProps) {
         </div>
       )}
 
-      {hasMore && !isLoading && (
+      {showLoadMore && hasMore && !isLoading && (
         <div className="mt-4 flex justify-center">
           <button
             type="button"

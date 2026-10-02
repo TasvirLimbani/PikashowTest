@@ -77,16 +77,18 @@ function normalizeGame(raw: GameMonetizeGame): Game {
 }
 
 function buildParams(query: GameQuery): URLSearchParams {
-  const params = new URLSearchParams({
-    format: "0",
-    num: String(query.limit ?? 20),
-    page: String(query.page ?? 1),
-  })
+  const params = new URLSearchParams({ format: "0" })
+
+  if (query.id) {
+    params.set("id", query.id)
+    return params
+  }
+
+  params.set("num", String(query.limit ?? 20))
+  params.set("page", String(query.page ?? 1))
 
   if (query.category != null) params.set("category", String(query.category))
   if (query.name?.trim()) params.set("name", query.name.trim())
-  if (query.id) params.set("id", query.id)
-
   return params
 }
 

@@ -10,6 +10,19 @@ import { GAME_CATEGORIES } from "@/lib/game-categories"
 
 export const dynamic = "force-dynamic"
 
+const featuredGame = {
+  id: "87248",
+  title: "+1 Cut Grass Adventure",
+  description: "Control your lawn mower and clear the green fields as you progress! Earn money by mowing grass, upgrade your machine, and clean larger areas faster. Use your earnings to increase your capacity, speed, and mowing power, making your machine much more efficient. Unlock new areas, explore different environments, and mow as much grass as possible to grow your fortune. With simple controls, relaxing gameplay, and a rewarding progression system, this fun mowing adventure is perfect for enjoying even during short breaks. The more grass you mow, the faster you progress and the larger areas you can clear!",
+  instructions: "Move using WASD or the Arrow Keys Press Space to jump On mobile tap the screen to mow grass faster Mobile-friendly controls are available for a smooth gameplay experience on touch devices",
+  url: "https://html5.gamemonetize.co/aafq217bqi3jbg0q7yacv2lj8i0av6i4/",
+  category: "Adventure",
+  tags: ".io, 1 Player, 2026 games, 3D, 3D Games, cut, roblox",
+  thumb: "https://img.gamemonetize.com/aafq217bqi3jbg0q7yacv2lj8i0av6i4/512x384.jpg",
+  width: "800",
+  height: "600",
+}
+
 function HomeInner() {
   return (
     <>
@@ -18,7 +31,7 @@ function HomeInner() {
           {GAME_CATEGORIES.map((category) => (
             <SidebarLink
               key={`${category.id}-${category.name}`}
-              href={`/?category=${category.id}`}
+              href={`/categories?category=${category.id}`}
               icon={<Gamepad2 />}
               label={category.name}
             />
@@ -29,14 +42,17 @@ function HomeInner() {
       <main className="mx-auto w-full max-w-[1680px] min-w-0 flex-1 px-3 py-5 sm:px-5 md:py-8">
         <section className="relative min-h-[330px] overflow-hidden rounded-2xl border border-white/10 bg-[#181c2b] shadow-2xl shadow-black/20 sm:min-h-[350px] md:min-h-[360px]">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_45%,rgba(255,105,74,0.2),transparent_34%),linear-gradient(90deg,#181c2b_12%,rgba(24,28,43,0.92)_42%,rgba(24,28,43,0.12)_100%)]" />
-          <div className="absolute inset-y-0 right-0 w-full bg-[url('/Blog_1.jpg')] bg-cover bg-[center_right] opacity-70 sm:w-[68%] md:w-[58%]" />
+          <div
+            className="absolute inset-y-0 right-0 w-full bg-cover bg-[center_right] opacity-70 sm:w-[68%] md:w-[58%]"
+            style={{ backgroundImage: `url(${featuredGame?.thumb || "/placeholder.jpg"})` }}
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-[#181c2b] via-transparent to-transparent md:bg-gradient-to-r" />
           <div className="relative z-10 flex min-h-[330px] max-w-[660px] flex-col justify-end p-6 pb-8 sm:min-h-[350px] sm:p-9 sm:pb-10 md:min-h-[360px] md:justify-center md:p-14">
-            <div className="mb-4 flex flex-wrap items-center gap-2"><span className="rounded-full bg-[#ff694a] px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.14em] text-[#17131b]">Featured this week</span><span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] text-[#d1d1df]">Arcade</span></div>
+            <div className="mb-4 flex flex-wrap items-center gap-2"><span className="rounded-full bg-[#ff694a] px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.14em] text-[#17131b]">Featured today</span><span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] text-[#d1d1df]">{featuredGame?.category || "Game"}</span></div>
             <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-[#8be28b]">Your next high score</p>
-            <h1 className="max-w-[520px] text-4xl font-black leading-[0.98] tracking-tight text-white sm:text-5xl md:text-6xl">Subway Surfers Bali</h1>
-            <p className="mt-4 max-w-[420px] text-sm leading-6 text-[#b3bacb]">Make a run through the island, dodge the trains, and see how far you can get.</p>
-            <div className="mt-7 flex flex-wrap items-center gap-4"><a href="#games-grid" className="inline-flex items-center gap-2 rounded-lg bg-[#ff694a] px-5 py-3 text-sm font-bold text-[#17131b] shadow-lg shadow-[#ff694a]/20 transition hover:bg-[#ff8063]"><Play className="h-4 w-4 fill-current" /> Play Now</a><span className="text-sm font-semibold text-white">⭐ 3.7 <span className="font-normal text-[#b8b6d2]">(331,537 plays)</span></span></div>
+            <h1 className="max-w-[520px] text-4xl font-black leading-[0.98] tracking-tight text-white sm:text-5xl md:text-6xl">{featuredGame.title}</h1>
+            <p className="mt-4 line-clamp-3 h-[72px] max-w-[420px] overflow-hidden text-sm leading-6 text-[#b3bacb]">{featuredGame.description}</p>
+            <div className="mt-7 flex flex-wrap items-center gap-4"><a href={`/game/${featuredGame.id}`} className="inline-flex items-center gap-2 rounded-lg bg-[#ff694a] px-5 py-3 text-sm font-bold text-[#17131b] shadow-lg shadow-[#ff694a]/20 transition hover:bg-[#ff8063]"><Play className="h-4 w-4 fill-current" /> Play Now</a><span className="text-sm font-semibold text-white">{featuredGame.tags.split(",")[0]}</span></div>
           </div>
         </section>
         <HomeRail title="Popular Games" icon={<Flame />} category="all" />
@@ -65,6 +81,6 @@ function SidebarLink({ href, icon, label, active = false }: { href: string; icon
 }
 
 function HomeRail({ title, icon, category }: { title: string; icon: React.ReactNode; category: string }) {
-  return <section id={title === "Popular Games" ? "games-grid" : undefined} className="mt-10 md:mt-12"><div className="mb-4 flex items-end justify-between border-b border-white/10 pb-3"><h2 className="flex items-center gap-2 text-xl font-black tracking-tight text-white"><span className="text-[#ff8063] [&>svg]:h-5 [&>svg]:w-5">{icon}</span>{title}</h2><a href={`/trending?category=${category}`} className="inline-flex items-center gap-1 text-xs font-bold text-[#8be28b] transition hover:text-white">See all <ArrowRight className="h-3.5 w-3.5" /></a></div><GameGrid category={category} /></section>
+  return <section id={title === "Popular Games" ? "games-grid" : undefined} className="mt-10 md:mt-12"><div className="mb-4 flex items-end justify-between border-b border-white/10 pb-3"><h2 className="flex items-center gap-2 text-xl font-black tracking-tight text-white"><span className="text-[#ff8063] [&>svg]:h-5 [&>svg]:w-5">{icon}</span>{title}</h2><a href={`/categories?category=${category}`} className="inline-flex items-center gap-1 text-xs font-bold text-[#8be28b] transition hover:text-white">See all <ArrowRight className="h-3.5 w-3.5" /></a></div><GameGrid category={category} showLoadMore={false} /></section>
 }
 

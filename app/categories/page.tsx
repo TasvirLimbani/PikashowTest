@@ -10,13 +10,14 @@ import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import HorizontalAd from "@/components/AdsComponents/HorizontalAd"
 import { GameGrid } from "@/components/game-grid"
+import { GAME_CATEGORIES } from "@/lib/game-categories"
 
 export default function CategoriesPage() {
   const [categories, setCategories] = useState<Category[]>([])
   const [isLoading, setIsLoading] = useState(true)
-  const [selectedCategory, setSelectedCategory] = useState("all")
   const searchParams = useSearchParams()
   const categoryId = searchParams.get("category") || ""
+  const categoryDefinition = GAME_CATEGORIES.find((category) => String(category.id) === categoryId)
 
   useEffect(() => {
     async function fetchCategories() {
@@ -41,13 +42,13 @@ export default function CategoriesPage() {
 
       <main className="max-w-7xl mx-auto px-4 py-12 flex-1 w-full">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">{categoryId ? "Category Games" : "Browse Categories"}</h1>
-          <p className="text-slate-400">{categoryId ? "Explore more games in this category" : "Explore games by category and find your favorite genre"}</p>
+          <h1 className="text-4xl font-bold text-white mb-2">{categoryId ? `${categoryDefinition?.name || "Category"} Games` : "Browse Categories"}</h1>
+          <p className="text-slate-400">{categoryId ? `Explore ${categoryDefinition?.name || "this category"} games` : "Explore games by category and find your favorite genre"}</p>
         </div>
         <HorizontalAd />
 
         {categoryId ? (
-          <GameGrid category={categoryId} />
+          <GameGrid category={categoryId} layout="grid" />
         ) : isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...Array(6)].map((_, i) => (

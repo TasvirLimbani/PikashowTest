@@ -1,4 +1,4 @@
-import { GameMonetizeError, getGameById } from "@/lib/gamemonetize"
+import { GameMonetizeError, getGameById, getGames } from "@/lib/gamemonetize"
 
 export async function GET(
   request: Request,
@@ -12,7 +12,15 @@ export async function GET(
       return Response.json({ error: "Game not found" }, { status: 404 })
     }
 
-    return Response.json(game)
+    let relatedGames = []
+    try {
+      const related = await getGames(1, 10)
+      relatedGames = related.games.filter((relatedGame) => relatedGame.id !== game.id).slice(0, 5)
+    } catch (relatedError) {
+      console.warn("Related GameMonetize games unavailable:", relatedError)
+    }
+
+    return Response.json({ ...game, relatedGames })
   } catch (error) {
     console.error("GameMonetize details proxy failed:", error)
     if (error instanceof GameMonetizeError) {

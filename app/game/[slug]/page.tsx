@@ -297,9 +297,7 @@ export default function GamePage() {
           })
         }
 
-        const relatedRes = await fetch(`/api/games?limit=10&page=1`)
-        const relatedData = await relatedRes.json()
-        setRelatedGames((relatedData.games || []).filter((g: GameDetails) => g.id !== id).slice(0, 5))
+        setRelatedGames(Array.isArray(data.relatedGames) ? data.relatedGames : [])
       } catch (error) {
         console.error("[v0] Failed to fetch game:", error)
       } finally {
