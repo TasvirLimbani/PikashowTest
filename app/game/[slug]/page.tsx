@@ -281,27 +281,25 @@ export default function GamePage() {
         const res = await fetch(`/api/games/${id}`)
         const data = await res.json()
 
-        const mdesc = data.metaDesc?.replaceAll("atmegame.com", "pikashowgames.com");
-        const mtitle = data.metaTitle?.replaceAll("Atmegame.com", "pikashowgames.com");
-        setMTitle(mtitle);
-        setMDesc(mdesc);
+        setMTitle(data.title || "PikaShowGames")
+        setMDesc(data.description || "")
 
         setGame(data)
 
         if (user) {
           await updateDoc(doc(db, "users", user.uid), {
             recentlyPlayed: arrayUnion({
-              gameSlug: data.slug,
-              gameName: data.name,
+              gameSlug: data.id,
+              gameName: data.title,
               playedAt: Timestamp.now(),
               timeSpent: 0,
             }),
           })
         }
 
-        const relatedRes = await fetch(`/api/games?limit=10&page=0`)
+        const relatedRes = await fetch(`/api/games?limit=10&page=1`)
         const relatedData = await relatedRes.json()
-        setRelatedGames(relatedData.games.filter((g: any) => g.id !== Number(id)).slice(0, 5))
+        setRelatedGames((relatedData.games || []).filter((g: GameDetails) => g.id !== id).slice(0, 5))
       } catch (error) {
         console.error("[v0] Failed to fetch game:", error)
       } finally {
@@ -320,7 +318,7 @@ export default function GamePage() {
 
     try {
       await updateDoc(doc(db, "users", user.uid), {
-        favoriteGames: arrayUnion(game?.slug),
+        favoriteGames: arrayUnion(game?.id),
       })
       setIsFavorited(!isFavorited)
     } catch (error) {
@@ -330,8 +328,8 @@ export default function GamePage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex flex-col">
-        <Header />
+      <div className="flex min-h-screen w-full flex-col overflow-x-clip bg-linear-to-br from-slate-950 via-slate-900 to-slate-950">
+        <Header showSearch={false} />
         <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex-1">
           <div className="animate-pulse space-y-4">
             <div className="h-10 sm:h-12 bg-slate-800 rounded-lg w-3/4 sm:w-1/2" />
@@ -345,8 +343,8 @@ export default function GamePage() {
 
   if (!game) {
     return (
-      <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex flex-col">
-        <Header />
+      <div className="flex min-h-screen w-full flex-col overflow-x-clip bg-linear-to-br from-slate-950 via-slate-900 to-slate-950">
+        <Header showSearch={false} />
         <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex-1">
           <p className="text-white text-center">Game not found</p>
         </main>
@@ -355,21 +353,19 @@ export default function GamePage() {
     )
   }
 
-  const imageUrl = game?.image
-    ? `https://www.atmhtml5games.com${game.image}`
-    : ""
+  const imageUrl = game.thumb
 
   const gameSchema = {
     "@context": "https://schema.org",
     "@type": "VideoGame",
-    "name": game.name,
-    "description": mDesc || `Play ${game.name} free online browser game on PikaShowGames.`,
+    "name": game.title,
+    "description": mDesc || `Play ${game.title} free online browser game on PikaShowGames.`,
     "genre": game.category || "Casual",
     "gamePlatform": "Web Browser, Mobile, Desktop",
     "applicationCategory": "Game",
     "operatingSystem": "Any",
     "image": imageUrl,
-    "url": `https://www.pikashowgames.com/game/${game.slug || id}`,
+    "url": `https://www.pikashowgames.com/game/${game.id}`,
     "author": {
       "@type": "Organization",
       "name": "PikaShowGames"
@@ -408,19 +404,19 @@ export default function GamePage() {
       {
         "@type": "ListItem",
         "position": 3,
-        "name": game.name,
-        "item": `https://www.pikashowgames.com/game/${game.slug || id}`
+        "name": game.title,
+        "item": `https://www.pikashowgames.com/game/${game.id}`
       }
     ]
   }
 
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex flex-col">
+    <div className="flex min-h-screen w-full flex-col overflow-x-clip bg-linear-to-br from-slate-950 via-slate-900 to-slate-950">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify([gameSchema, breadcrumbSchema]) }}
       />
-      <Header />
+      <Header showSearch={false} />
 
       <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 md:py-12 flex-1">
         {/* Visual Breadcrumb Navigation */}
@@ -434,7 +430,7 @@ export default function GamePage() {
               <a href="/categories" className="hover:text-purple-300 transition-colors">Games</a>
             </li>
             <li>/</li>
-            <li className="text-purple-400 font-medium truncate max-w-xs">{game.name}</li>
+            <li className="text-purple-400 font-medium truncate max-w-xs">{game.title}</li>
           </ol>
         </nav>
 
@@ -444,15 +440,14 @@ export default function GamePage() {
         </div>
 
         <div className="mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white mb-4 break-words">
-            {game.name}
+          <h1 className="mb-4 text-2xl font-bold text-white wrap-break-word sm:text-4xl md:text-5xl">
+            {game.title}
           </h1>
           <div className="flex flex-col xs:flex-row sm:flex-row flex-wrap items-stretch sm:items-center gap-2 sm:gap-4">
             <Button
               onClick={handleAddToFavorites}
-              className={`w-full sm:w-auto gap-2 justify-center ${
-                isFavorited ? "bg-pink-600 hover:bg-pink-700" : "bg-slate-800 hover:bg-slate-700"
-              }`}
+              className={`w-full sm:w-auto gap-2 justify-center ${isFavorited ? "bg-pink-600 hover:bg-pink-700" : "bg-slate-800 hover:bg-slate-700"
+                }`}
             >
               <Heart className={`w-5 h-5 ${isFavorited ? "fill-current" : ""}`} />
               {isFavorited ? "Favorited" : "Add to Favorites"}
@@ -479,7 +474,7 @@ export default function GamePage() {
               <BookOpen className="w-5 h-5 shrink-0" />
               How to Play
             </h3>
-            <p className="text-sm sm:text-base text-slate-300 leading-relaxed break-words">
+            <p className="text-sm leading-relaxed text-slate-300 wrap-break-word sm:text-base">
               {game.instructions}
             </p>
           </div>
@@ -487,12 +482,12 @@ export default function GamePage() {
 
         {/* Game Player - responsive wrapper prevents fixed-size iframe overflow */}
         <div className="mb-8 sm:mb-12 w-full">
-          <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-black [&>*]:w-full [&>*]:h-full [&_iframe]:w-full [&_iframe]:h-full [&_canvas]:w-full [&_canvas]:h-full">
+          <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-black *:h-full *:w-full [&_iframe]:h-full [&_iframe]:w-full [&_canvas]:h-full [&_canvas]:w-full">
             <GamePlayer
-              gameName={game.name}
-              gameSlug={game.slug}
-              gameUrl={game.script || game.url || ""}
-              gameImage={game.image}
+              gameName={game.title}
+              gameSlug={game.id}
+              gameUrl={game.url}
+              gameImage={game.thumb}
             />
           </div>
         </div>
@@ -512,10 +507,10 @@ export default function GamePage() {
               `Experience ${game.name}, played by ${game.totalPlayed.toLocaleString()} users.`}
           </p> */}
 
-          <p className="text-sm sm:text-base text-slate-300 leading-relaxed mb-4 break-words">
-  {game.description ||
-    `Experience ${game.name}, played by ${(game.totalPlayed ?? 0).toLocaleString()} users.`}
-</p>
+          <p className="mb-4 text-sm leading-relaxed text-slate-300 wrap-break-word sm:text-base">
+            {game.description ||
+              `Experience ${game.title}, available to play online.`}
+          </p>
           {game.category && (
             <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-slate-400">
               <span>
@@ -536,8 +531,8 @@ export default function GamePage() {
           <div>
             <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Similar Games</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
-              {relatedGames.map((relatedGame) => (
-                <GameCard key={relatedGame.slug} game={relatedGame} />
+              {relatedGames.map((relatedGame: GameDetails) => (
+                <GameCard key={relatedGame.id} game={relatedGame} />
               ))}
             </div>
           </div>

@@ -1,5 +1,5 @@
 export interface Category {
-  _id: string
+  id: number
   name: string
   slug: string
 }
@@ -12,7 +12,18 @@ export interface CategoryGame {
 }
 
 export interface Game {
-  id: number
+  id: string
+  title: string
+  description: string
+  instructions: string
+  url: string
+  category: string
+  tags: string
+  thumb: string
+  width: number
+  height: number
+
+  // Compatibility fields used by existing profile and presentation components.
   name: string
   slug: string
   image: string
@@ -21,17 +32,10 @@ export interface Game {
   totalPlayed: number
   ownGame: boolean
   addDate: string
-  script?: string
-  metaTitle?: string
-  metaDesc?: string
-  metaKeyword?: string
+  script: string
 }
 
-export interface GameDetails extends Game {
-  description?: string
-  instructions?: string
-  url?: string
-  category?: string
+export type GameDetails = Game & {
   releaseDate?: string
 }
 

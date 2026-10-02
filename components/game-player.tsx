@@ -15,14 +15,7 @@ export function GamePlayer({ gameName, gameSlug, gameUrl, gameImage }: GamePlaye
   const [isPlaying, setIsPlaying] = useState(false)
   const [isFullscreen, setIsFullscreen] = useState(false)
 
-  // Clean game URL
-  // const gameEmbedUrl = (gameUrl || "")
-  //   .trim()
-  //   .replace(/\r?\n|\r|\t/g, "")
-
-  const gameEmbedUrl = gameSlug
-    ? `https://www.atmhtml5games.com/splash/${gameSlug}/`
-    : ""
+  const gameEmbedUrl = (gameUrl || "").trim()
 
   // Handle true fullscreen toggle
   const toggleFullscreen = () => {
@@ -65,9 +58,9 @@ export function GamePlayer({ gameName, gameSlug, gameUrl, gameImage }: GamePlaye
         }`}
     >
       {!isPlaying ? (
-        <div className="relative w-full aspect-video bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center">
+        <div className="relative flex aspect-video w-full items-center justify-center bg-linear-to-br from-slate-800 to-slate-900">
           <img
-            src={`https://www.atmhtml5games.com${gameImage}`}
+            src={gameImage || "/placeholder.svg"}
             alt={gameName}
             className="w-full h-full object-cover"
           />
@@ -77,7 +70,7 @@ export function GamePlayer({ gameName, gameSlug, gameUrl, gameImage }: GamePlaye
               console.log("[v0] Play button clicked, loading iframe with URL:", gameEmbedUrl)
               setIsPlaying(true)
             }}
-            className="absolute flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-full transition-all transform hover:scale-105"
+            className="absolute flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-pink-600 px-6 py-3 transition-all hover:scale-105 hover:from-purple-700 hover:to-pink-700"
           >
             <Play className="w-5 h-5 fill-white" />
             <span>Play Game</span>

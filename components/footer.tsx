@@ -5,15 +5,8 @@ import HorizontalAd from "./AdsComponents/HorizontalAd"
 export function Footer() {
   return (
     <footer className="mt-16">
-      {/* Curved top divider */}
-      <div className="relative pt-8 overflow-hidden">
-        <svg className="w-full h-24 fill-blue-600" viewBox="0 0 1200 120" preserveAspectRatio="none">
-          <path d="M0,50 Q300,0 600,50 T1200,50 L1200,120 L0,120 Z"></path>
-        </svg>
-      </div>
-
       {/* Footer content */}
-      <div className="bg-blue-600 text-white px-6 py-12 md:py-16">
+      <div className="bg-transparent text-white px-6 py-12 md:py-16">
         <div className="max-w-7xl mx-auto">
           <p>Welcome to PikaShowGames, the ultimate destination to play free online games instantly! Our browser gaming platform offers a massive collection of HTML5 games that run smoothly on desktop and mobile—no downloads, no installations, just pure fun. Discover hundreds of exciting titles including action games, racing games, puzzle challenges, and adventure quests, all free to play online. At PikaShowGames, we make online gaming fast, safe, and accessible for everyone. Whether you’re killing time or chasing high scores, you’ll find endless entertainment on our free gaming website. Join thousands of players worldwide and enjoy the best online web games anytime, anywhere. Play instantly and experience the thrill of gaming like never before at PikaShowGames.com!</p>
           <br />
@@ -151,10 +144,10 @@ export function Footer() {
           </div>
           <HorizontalAd />
           {/* Divider */}
-          <div className="border-t border-blue-500 pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center text-blue-100 text-sm">
+          <div className="border-t border-[#29275e] pt-6 md:pt-8">
+            <div className="flex flex-col items-start gap-4 text-blue-100 text-sm sm:flex-row sm:items-center sm:justify-between">
               <p>Copyright © PikaShowGames 2025</p>
-              <div className="flex gap-6 mt-4 md:mt-0">
+              <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-6">
                 <Link href="/disclaimer" className="hover:text-white transition-colors">
                   Disclaimer
                 </Link>

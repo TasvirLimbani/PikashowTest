@@ -49,11 +49,10 @@ export function CategoryFilter({ onCategoryChange, selectedCategory }: CategoryF
         <div className="flex items-center gap-2 overflow-x-auto py-3 scrollbar-hide">
           <button
             onClick={() => window.location.reload()}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg whitespace-nowrap transition-all ${
-              selectedCategory === "all"
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg whitespace-nowrap transition-all ${selectedCategory === "all"
                 ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white"
                 : "text-slate-300 hover:text-white hover:bg-slate-800/50"
-            }`}
+              }`}
           >
             <Gamepad2 className="w-5 h-5" />
             All
@@ -63,20 +62,19 @@ export function CategoryFilter({ onCategoryChange, selectedCategory }: CategoryF
             const icon = categoryIcons[category.slug] || <Gamepad2 className="w-5 h-5" />
             return (
               <button
-                key={category._id}
-                onClick={() => onCategoryChange(category.slug)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg whitespace-nowrap transition-all ${
-                  selectedCategory === category.slug
+                key={category.id}
+                onClick={() => onCategoryChange(String(category.id))}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg whitespace-nowrap transition-all ${selectedCategory === String(category.id)
                     ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white"
                     : "text-slate-300 hover:text-white hover:bg-slate-800/50"
-                }`}
+                  }`}
               >
                 {/* {icon} */}
                 <img
-  src={`https://images.atmegame.com/cat/${category.slug}.png`}
-  alt={category.name}
-  className="w-6 h-6 object-contain"
-/>
+                  src={`https://images.atmegame.com/cat/${category.slug}.png`}
+                  alt={category.name}
+                  className="w-6 h-6 object-contain"
+                />
                 <span className="capitalize text-sm font-medium">{category.name}</span>
               </button>
             )

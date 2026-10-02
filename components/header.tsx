@@ -8,8 +8,13 @@ import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 import { SearchBar } from "./search-bar"
 import { MobileMenu } from "./mobile-menu"
+import { LogOut, UserCircle } from "lucide-react"
 
-export function Header() {
+interface HeaderProps {
+  showSearch?: boolean
+}
+
+export function Header({ showSearch = true }: HeaderProps) {
   const { user } = useAuth()
   const router = useRouter()
 
@@ -20,69 +25,47 @@ export function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900 border-b border-purple-500/20 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-2 md:gap-4">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-background/95 backdrop-blur-xl">
+      <div className="mx-auto flex h-16 max-w-[1680px] items-center justify-between gap-3 px-3 sm:px-5 md:h-[76px] md:gap-8">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group flex-shrink-0">
-           <div className="w-10 h-10 rounded-lg flex items-center justify-center transform group-hover:scale-110 transition-transform">
-             <img src="/Logo.png" alt="PikaShowGames Official Logo" className="w-full h-full object-contain" />
-           </div>
-           <span className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent hidden sm:inline">
-             PikaShowGames
-           </span>
-         </Link>
+        <Link href="/" className="group flex min-w-0 shrink-0 items-center gap-2.5">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary p-1.5 shadow-lg shadow-primary/20 transition-transform group-hover:-rotate-6">
+            <img src="/Logo.png" alt="PikaShowGames Official Logo" className="w-full h-full object-contain" />
+          </div>
+          <span className="whitespace-nowrap text-base font-black tracking-[-0.03em] text-white md:text-lg">
+            Pika<span className="text-[#ff8063]">Show</span>
+          </span>
+        </Link>
 
         {/* Search Bar - Hidden on mobile, shown on md and up */}
-        <div className="hidden md:flex flex-1 mx-4">
-          <SearchBar />
-        </div>
+        {showSearch && (
+          <div className="hidden flex-1 justify-center md:flex">
+            <SearchBar />
+          </div>
+        )}
 
-        {/* Desktop Navigation and Auth - Hidden on mobile */}
-        <nav className="hidden md:flex items-center gap-6">
-          <Link href="/" className="text-slate-300 hover:text-white transition-colors text-sm">
-            Home
-          </Link>
-          {/* <Link href="/categories" className="text-slate-300 hover:text-white transition-colors text-sm">
-            Categories
-          </Link> */}
-          <Link href="/trending" className="text-slate-300 hover:text-white transition-colors text-sm">
-            Trending
-          </Link>
-        </nav>
-
-        {/* Desktop Auth Buttons - Hidden on mobile */}
-        <div className="hidden md:flex items-center gap-3">
+        {/* Desktop authentication actions */}
+        <div className="hidden shrink-0 items-center gap-2 md:flex">
           {user ? (
             <>
-              <Link href="/profile">
-                <Button
-                  variant="outline"
-                  className="border-purple-500/50 text-purple-400 hover:text-white hover:border-purple-400 bg-transparent text-sm"
-                >
-                  Profile
-                </Button>
+              <Link href="/profile" className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm font-semibold text-white transition hover:border-white/20 hover:bg-white/10">
+                <UserCircle className="h-4 w-4" />
+                Profile
               </Link>
-              <Button
-                onClick={handleLogout}
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-sm"
-              >
+              <Button onClick={handleLogout} className="flex items-center gap-2 bg-primary text-sm text-[#17131b] hover:bg-[#ff8063]">
+                <LogOut className="h-4 w-4" />
                 Logout
               </Button>
             </>
           ) : (
             <>
               <Link href="/login">
-                <Button
-                  variant="outline"
-                  className="border-purple-500/50 text-purple-400 hover:text-white hover:border-purple-400 bg-transparent text-sm"
-                >
+                <Button variant="outline" className="border-white/15 bg-transparent text-white hover:border-white/30 hover:bg-white/10">
                   Login
                 </Button>
               </Link>
               <Link href="/signup">
-                <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-sm">
-                  Sign Up
-                </Button>
+                <Button className="bg-primary text-[#17131b] hover:bg-[#ff8063]">Sign Up</Button>
               </Link>
             </>
           )}
@@ -93,9 +76,11 @@ export function Header() {
       </div>
 
       {/* Mobile Search Bar - Shown only on mobile */}
-      <div className="md:hidden px-4 pb-4">
-        <SearchBar />
-      </div>
+      {showSearch && (
+        <div className="bg-background px-3 pb-3 pt-1 md:hidden">
+          <SearchBar />
+        </div>
+      )}
     </header>
   )
 }

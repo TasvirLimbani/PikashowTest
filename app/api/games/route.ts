@@ -33,57 +33,33 @@
 // }
 
 
-const GAMES_API = "http://pikashowgames.soon.it/api/v0/list.php"
+import { GameMonetizeError, getGames, getGamesByCategory, searchGames } from "@/lib/gamemonetize"
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
+    const page = Math.max(1, Number.parseInt(searchParams.get("page") || "1"))
+    const limit = Math.max(1, Number.parseInt(searchParams.get("limit") || searchParams.get("num") || "50"))
+    const category = Number.parseInt(searchParams.get("category") || "")
+    const name = searchParams.get("name") || searchParams.get("q") || ""
 
-    const page = Number.parseInt(searchParams.get("page") || "0")
-    const limit = Number.parseInt(searchParams.get("limit") || "20")
-    const category = searchParams.get("category")
-
-const res = await fetch(
-  `${GAMES_API}?page=${page + 1}`,
-  {
-    cache: "no-store",
-  }
-)
-
-    const data = await res.json()
-
-    // ✅ NEW DATA SOURCE
-    let games = data.data || []
-
-    // ✅ CATEGORY FILTER (updated)
-    if (category && category !== "all") {
-      games = games.filter((game: any) =>
-        game.category?.toLowerCase().includes(category.toLowerCase())
-      )
-    }
-
-    // ✅ OPTIONAL: NORMALIZE DATA (IMPORTANT if frontend expects old structure)
-const formattedGames = games.map((game: any) => ({
-  id: game.id,
-  name: game.title,
-  slug: game.slug,
-  image: game.thumb_small,
-  likes: game.upvote,
-  manualRating: 5,
-  totalPlayed: game.views,
-  ownGame: false,
-  addDate: game.created_at,
-}))
+    const result = name.trim()
+      ? await searchGames(name, page, limit, Number.isNaN(category) ? undefined : category)
+      : Number.isNaN(category) || category === 0
+        ? await getGames(page, limit)
+        : await getGamesByCategory(category, page, limit)
 
     return Response.json({
-      games: formattedGames, // 👈 send normalized data
-      total: games.length,
-      page,
-      limit,
-      hasMore: formattedGames.length > 0,
+      ...result,
     })
   } catch (error) {
-    console.error(error)
+    console.error("GameMonetize games proxy failed:", error)
+    if (error instanceof GameMonetizeError) {
+      return Response.json(
+        { error: error.status === 429 ? "The game feed is temporarily busy. Please try again shortly." : "Game feed is unavailable." },
+        { status: error.status === 429 ? 429 : 502, headers: error.retryAfter ? { "Retry-After": error.retryAfter } : undefined },
+      )
+    }
     return Response.json(
       { error: "Failed to fetch games" },
       { status: 500 }

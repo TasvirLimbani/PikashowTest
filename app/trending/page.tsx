@@ -17,10 +17,10 @@ export default function TrendingPage() {
   useEffect(() => {
     async function fetchTrendingGames() {
       try {
-        const res = await fetch(`/api/games?limit=50&page=0&category=${selectedCategory}`)
+        const res = await fetch(`/api/games?limit=50&page=1&category=${selectedCategory}`)
         const data = await res.json()
         // Sort by likes and totalPlayed to get trending games
-        const trending = data.games.sort((a: Game, b: Game) => b.likes + b.totalPlayed - (a.likes + a.totalPlayed))
+        const trending = (data.games || []).sort((a: Game, b: Game) => b.likes + b.totalPlayed - (a.likes + a.totalPlayed))
         setGames(trending.slice(0, 50))
       } catch (error) {
         console.log("[v0] Failed to fetch trending games:", error)

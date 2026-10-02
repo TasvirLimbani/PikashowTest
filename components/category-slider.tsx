@@ -35,25 +35,23 @@ export function CategorySlider({ onCategoryChange, selectedCategory }: CategoryS
         <Button
           onClick={() => onCategoryChange("all")}
           variant={selectedCategory === "all" ? "default" : "outline"}
-          className={`whitespace-nowrap transition-all ${
-            selectedCategory === "all"
+          className={`whitespace-nowrap transition-all ${selectedCategory === "all"
               ? "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
               : "border-purple-500/50 text-purple-400 hover:text-white hover:border-purple-400"
-          }`}
+            }`}
         >
           All Games
         </Button>
 
         {categories.map((category) => (
           <Button
-            key={category._id}
-            onClick={() => onCategoryChange(category.slug)}
+            key={category.id}
+            onClick={() => onCategoryChange(String(category.id))}
             variant={selectedCategory === category.slug ? "default" : "outline"}
-            className={`whitespace-nowrap capitalize transition-all ${
-              selectedCategory === category.slug
+            className={`whitespace-nowrap capitalize transition-all ${selectedCategory === String(category.id)
                 ? "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
                 : "border-purple-500/50 text-purple-400 hover:text-white hover:border-purple-400"
-            }`}
+              }`}
           >
             {category.name}
           </Button>

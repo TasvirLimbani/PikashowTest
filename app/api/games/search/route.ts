@@ -1,30 +1,33 @@
-const GAMES_API = "https://raw.githubusercontent.com/TasvirLimbani/Atme/refs/heads/main/game.json"
+import { GameMonetizeError, searchGames } from "@/lib/gamemonetize"
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
-    const query = searchParams.get("q")?.toLowerCase() || ""
-    const limit = Number.parseInt(searchParams.get("limit") || "10")
+    const query = searchParams.get("name") || searchParams.get("q") || ""
+    const page = Math.max(1, Number.parseInt(searchParams.get("page") || "1"))
+    const limit = Math.max(1, Number.parseInt(searchParams.get("limit") || searchParams.get("num") || "20"))
+    const categoryValue = Number.parseInt(searchParams.get("category") || "")
 
-    const gamesRes = await fetch(GAMES_API)
-    const gamesData = await gamesRes.json()
-    let games = gamesData.games || []
-
-    if (query) {
-      games = games.filter((game: any) => game.name?.toLowerCase().includes(query))
+    if (!query.trim()) {
+      return Response.json({ results: [], total: 0, page, limit, hasMore: false })
     }
 
-    return Response.json({
-results: games.slice(0, limit).map((game: any) => ({
-  id: game.id,
-  slug: game.slug,
-  name: game.name,
-  image: game.image,
-  totalPlayed: Number(game.totalPlayed ?? 0),
-})),
-  total: games.length,
-    })
+    const result = await searchGames(
+      query,
+      page,
+      limit,
+      Number.isNaN(categoryValue) ? undefined : categoryValue,
+    )
+
+    return Response.json({ results: result.games, ...result })
   } catch (error) {
+    console.error("GameMonetize search proxy failed:", error)
+    if (error instanceof GameMonetizeError) {
+      return Response.json(
+        { error: error.status === 429 ? "Search is temporarily busy. Please try again shortly." : "Search is unavailable." },
+        { status: error.status === 429 ? 429 : 502, headers: error.retryAfter ? { "Retry-After": error.retryAfter } : undefined },
+      )
+    }
     return Response.json({ error: "Search failed" }, { status: 500 })
   }
 }

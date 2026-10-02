@@ -106,93 +106,95 @@ import { GameCard } from "./game-card"
 
 interface GameGridProps {
   category: string
+  searchQuery?: string
 }
 
-export function GameGrid({ category }: GameGridProps) {
+export function GameGrid({ category, searchQuery = "" }: GameGridProps) {
   const [games, setGames] = useState<Game[]>([])
-  const [page, setPage] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
-  const [hasMore, setHasMore] = useState(true)
+  const [error, setError] = useState("")
+  const [page, setPage] = useState(1)
+  const [hasMore, setHasMore] = useState(false)
 
-  useEffect(() => {
-    setGames([])
-    setPage(0)
-    setHasMore(true)
-  }, [category])
-
-  const loadMoreGames = async (pageToLoad: number) => {
+  const loadGames = async (pageToLoad: number, replace = false) => {
     if (isLoading) return
 
     setIsLoading(true)
+    setError("")
 
     try {
       const params = new URLSearchParams({
-        page: pageToLoad.toString(),
-        limit: "20",
-        category,
+        page: String(pageToLoad),
+        limit: category === "all" ? "50" : "20",
       })
+      const categoryId = Number.parseInt(category, 10)
+      if (!Number.isNaN(categoryId) && categoryId > 0) params.set("category", String(categoryId))
+      if (searchQuery.trim()) params.set("name", searchQuery.trim())
 
-      const res = await fetch(`/api/games?${params}`)
+      const res = await fetch(`/api/games?${params}`, { cache: "no-store" })
       const data = await res.json()
+      if (!res.ok) throw new Error(data.error || "Failed to fetch games")
 
-      // ✅ Prevent duplicates
+      const incomingGames = Array.isArray(data?.games) ? data.games : []
+
       setGames((prev) => {
-        const newGames = data.games.filter(
+        const newGames = incomingGames.filter(
           (newGame: Game) => !prev.some((g) => g.id === newGame.id)
         )
-        return [...prev, ...newGames]
+        return replace ? newGames : [...prev, ...newGames]
       })
-
-      setHasMore(data.hasMore)
+      setPage(pageToLoad)
+      setHasMore(Boolean(data?.hasMore))
     } catch (error) {
       console.error("Failed to load games:", error)
+      setError(error instanceof Error ? error.message : "Games could not be loaded right now.")
     } finally {
       setIsLoading(false)
     }
   }
 
   useEffect(() => {
-    loadMoreGames(page)
-  }, [page, category])
+    setGames([])
+    setPage(1)
+    setHasMore(false)
+    void loadGames(1, true)
+  }, [category, searchQuery])
+
+  const isEmpty = !isLoading && !error && games.length === 0
 
   return (
     <>
       {/* ✅ GAME GRID */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      <div className="flex snap-x gap-3 overflow-x-auto pb-2 scrollbar-hide">
         {games.map((game) => (
           <GameCard key={game.id} game={game} />
         ))}
       </div>
 
-      {/* ✅ LOAD MORE BUTTON */}
-      {hasMore && !isLoading &&(
-        <div className="flex justify-center mt-6">
-          <button
-            onClick={() => setPage((prev) => prev + 1)}
-            disabled={isLoading}
-            className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-md font-bold text-lg disabled:bg-gray-400"
-          >
-            {isLoading ? "Loading..." : "Load More"}
-          </button>
+      {error && <p className="py-4 text-center text-sm text-[#ff9d88]">{error}</p>}
+      {isEmpty && <p className="py-4 text-center text-sm text-[#9da4b9]">No games found.</p>}
+
+      {isLoading && (
+        <div className="mt-5 flex h-5 items-center justify-center">
+          <div className="flex gap-2">
+            <div className="h-2 w-2 animate-bounce rounded-full bg-primary" />
+            <div className="h-2 w-2 animate-bounce rounded-full bg-primary delay-100" />
+            <div className="h-2 w-2 animate-bounce rounded-full bg-primary delay-200" />
+          </div>
         </div>
       )}
 
-      {/* ✅ BOTTOM LOADER + END MESSAGE */}
-      <div className="h-10 mt-6 flex items-center justify-center">
-        {isLoading && (
-          <div className="flex gap-2">
-            <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce" />
-            <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce delay-100" />
-            <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce delay-200" />
-          </div>
-        )}
-
-        {!hasMore && games.length > 0 && !isLoading && (
-          <p className="text-slate-500 text-sm">
-            No more games to load
-          </p>
-        )}
-      </div>
+      {hasMore && !isLoading && (
+        <div className="mt-4 flex justify-center">
+          <button
+            type="button"
+            onClick={() => void loadGames(page + 1)}
+            className="rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-xs font-bold text-white transition hover:border-primary hover:bg-white/10"
+          >
+            Load more
+          </button>
+        </div>
+      )}
     </>
   )
 }

@@ -22,8 +22,8 @@ export default function ProfilePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex flex-col">
-        <Header />
+      <div className="flex min-h-screen flex-col bg-linear-to-br from-slate-950 via-slate-900 to-slate-950">
+        <Header showSearch={false} />
         <Footer />
       </div>
     )
@@ -36,8 +36,8 @@ export default function ProfilePage() {
 
   if (isUserLoading || !userData) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex flex-col">
-        <Header />
+      <div className="flex min-h-screen flex-col bg-linear-to-br from-slate-950 via-slate-900 to-slate-950">
+        <Header showSearch={false} />
         <main className="max-w-7xl mx-auto px-4 py-12 flex-1 w-full">
           <div className="animate-pulse space-y-4">
             <div className="h-40 bg-slate-800 rounded-lg" />
@@ -49,8 +49,8 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex flex-col">
-      <Header />
+    <div className="flex min-h-screen flex-col bg-linear-to-br from-slate-950 via-slate-900 to-slate-950">
+      <Header showSearch={false} />
 
       <main className="max-w-7xl mx-auto px-4 py-12 flex-1 w-full">
         {/* Profile Header */}

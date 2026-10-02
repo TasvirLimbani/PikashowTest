@@ -15,7 +15,7 @@ export function FavoriteGames({ favoriteIds }: FavoriteGamesProps) {
   useEffect(() => {
     async function fetchFavoriteGames() {
       try {
-        const res = await fetch("/api/games?limit=100&page=0")
+        const res = await fetch("/api/games?limit=100&page=1")
         const data = await res.json()
 
         const gameMap = new Map<string, Game>()

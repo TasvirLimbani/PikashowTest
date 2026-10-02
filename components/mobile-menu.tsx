@@ -6,7 +6,7 @@ import { signOut } from "firebase/auth"
 import { auth } from "@/lib/firebase"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { Menu, X } from "lucide-react"
+import { LogOut, Menu, UserCircle, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export function MobileMenu() {
@@ -24,7 +24,7 @@ export function MobileMenu() {
     <>
       {/* Hamburger Button */}
       <button
-        className="md:hidden flex items-center justify-center p-2 rounded-lg hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-500"
+        className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 text-white transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-primary md:hidden"
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle navigation menu"
         aria-expanded={isOpen}
@@ -34,43 +34,34 @@ export function MobileMenu() {
 
       {/* Mobile Menu Dropdown */}
       {isOpen && (
-        <div className="absolute top-full left-0 right-0 bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900 border-b border-purple-500/20 md:hidden">
-          <div className="px-4 py-4 space-y-3">
-            {/* Navigation Links */}
-            <Link href="/" onClick={() => setIsOpen(false)}>
-              <div className="text-slate-300 hover:text-white transition-colors py-2">Home</div>
-            </Link>
-            {/* <Link href="/categories" onClick={() => setIsOpen(false)}>
-              <div className="text-slate-300 hover:text-white transition-colors py-2">Categories</div>
-            </Link> */}
-            <Link href="/trending" onClick={() => setIsOpen(false)}>
-              <div className="text-slate-300 hover:text-white transition-colors py-2">Trending</div>
-            </Link>
-
-            <div className="border-t border-purple-500/20 pt-3 mt-3 space-y-2">
+        <div className="absolute left-0 right-0 top-full border-b border-white/10 bg-background shadow-2xl shadow-black/30 md:hidden">
+          <div className="space-y-2 px-4 py-4">
+            <div className="space-y-2">
               {user ? (
                 <>
-                  <Link href="/profile" onClick={() => setIsOpen(false)}>
-                    <Button className="w-full border-purple-500/50 text-purple-400 hover:text-white hover:border-purple-400 bg-transparent text-sm justify-start">
+                  <Link href="/profile" onClick={() => setIsOpen(false)} className="block">
+                    <Button className="w-full justify-start gap-2 border-white/10 bg-white/5 text-sm text-white hover:border-white/20 hover:bg-white/10">
+                      <UserCircle className="h-4 w-4" />
                       Profile
                     </Button>
                   </Link>
                   <Button
                     onClick={handleLogout}
-                    className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-sm justify-start"
+                    className="w-full justify-start gap-2 bg-primary text-sm text-[#17131b] hover:bg-[#ff8063]"
                   >
+                    <LogOut className="h-4 w-4" />
                     Logout
                   </Button>
                 </>
               ) : (
                 <>
                   <Link href="/login" onClick={() => setIsOpen(false)} className="block">
-                    <Button className="w-full border-purple-500/50 text-purple-400 hover:text-white hover:border-purple-400 bg-transparent text-sm justify-start">
+                    <Button variant="outline" className="w-full justify-start border-white/10 bg-white/5 text-sm text-white hover:border-white/20 hover:bg-white/10">
                       Login
                     </Button>
                   </Link>
                   <Link href="/signup" onClick={() => setIsOpen(false)} className="block">
-                    <Button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-sm justify-start">
+                    <Button className="w-full justify-start bg-primary text-sm text-[#17131b] hover:bg-[#ff8063]">
                       Sign Up
                     </Button>
                   </Link>
