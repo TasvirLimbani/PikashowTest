@@ -1,6 +1,10 @@
 import type { Game } from "./types"
 
 const GAME_MONETIZE_URL = "https://gamemonetize.com/feed.php"
+const CACHE_TTL_MS = 60_000
+
+const responseCache = new Map<string, { expiresAt: number; result: GameQueryResult }>()
+const pendingRequests = new Map<string, Promise<GameQueryResult>>()
 
 export interface GameQuery {
   page?: number
@@ -95,26 +99,42 @@ function buildParams(query: GameQuery): URLSearchParams {
 async function requestGames(query: GameQuery): Promise<GameQueryResult> {
   const page = query.page ?? 1
   const limit = query.limit ?? 20
-  const response = await fetch(`${GAME_MONETIZE_URL}?${buildParams(query)}`, {
-    cache: "no-store",
-  })
+  const queryUrl = `${GAME_MONETIZE_URL}?${buildParams(query)}`
+  const cached = responseCache.get(queryUrl)
 
-  if (!response.ok) {
-    throw new GameMonetizeError(response.status, response.headers.get("retry-after") || undefined)
-  }
+  if (cached && cached.expiresAt > Date.now()) return cached.result
+  if (cached) responseCache.delete(queryUrl)
 
-  const payload = (await response.json()) as GameMonetizeGame[] | { value?: GameMonetizeGame[]; Count?: number }
-  const rawGames = Array.isArray(payload) ? payload : Array.isArray(payload.value) ? payload.value : []
-  const games = rawGames.map(normalizeGame)
-  const total = Array.isArray(payload) ? games.length : Number(payload.Count) || games.length
+  const pending = pendingRequests.get(queryUrl)
+  if (pending) return pending
 
-  return {
-    games,
-    total,
-    page,
-    limit,
-    hasMore: page * limit < total || games.length === limit,
-  }
+  const request = fetch(queryUrl, { cache: "no-store" })
+    .then(async (response) => {
+      if (!response.ok) {
+        throw new GameMonetizeError(response.status, response.headers.get("retry-after") || undefined)
+      }
+
+      const payload = (await response.json()) as GameMonetizeGame[] | { value?: GameMonetizeGame[]; Count?: number }
+      const rawGames = Array.isArray(payload) ? payload : Array.isArray(payload.value) ? payload.value : []
+      const games = rawGames.map(normalizeGame)
+      const total = Array.isArray(payload) ? games.length : Number(payload.Count) || games.length
+      const result = {
+        games,
+        total,
+        page,
+        limit,
+        hasMore: page * limit < total || games.length === limit,
+      }
+
+      responseCache.set(queryUrl, { expiresAt: Date.now() + CACHE_TTL_MS, result })
+      return result
+    })
+    .finally(() => {
+      pendingRequests.delete(queryUrl)
+    })
+
+  pendingRequests.set(queryUrl, request)
+  return request
 }
 
 export function getGames(page = 1, limit = 50): Promise<GameQueryResult> {
